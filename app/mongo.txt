@@ -1,0 +1,1 @@
+'mongodb+srv://mainUser:cw26174@cluster0.rwjm6.mongodb.net/ReactCourse?retryWrites=true&w=majority';
