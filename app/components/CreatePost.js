@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from './Page';
 import Axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-function CreatePost() {
+function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await Axios.post('/create-post', {
+      const response = await Axios.post('/create-post', {
         title,
         body,
         token: localStorage.getItem('complexappToken')
       });
+      // Redirect to new post url
+      console.log(response.config.data);
+      let id = JSON.parse(response.config.data);
+      console.log(id.title);
+      id = id.title;
+      props.history.push(`/post/${id}`);
       console.log('New post was created.');
-      setTitle('');
-      setBody('');
     } catch (e) {
       console.log('There was a problem.');
     }
@@ -38,7 +43,6 @@ function CreatePost() {
             type='text'
             placeholder=''
             autoComplete='off'
-            value={title}
           />
         </div>
 
@@ -52,7 +56,6 @@ function CreatePost() {
             id='post-body'
             className='body-content tall-textarea form-control'
             type='text'
-            value={body}
           ></textarea>
         </div>
 
@@ -62,4 +65,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default withRouter(CreatePost);
