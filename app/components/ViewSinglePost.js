@@ -10,7 +10,11 @@ function ViewSinglePost() {
           <Link to='/home' className='text-primary mr-2' title='Edit'>
             <i className='fas fa-edit'></i>
           </Link>
-          <Link className='delete-post-button text-danger' title='Delete'>
+          <Link
+            to='/'
+            className='delete-post-button text-danger'
+            title='Delete'
+          >
             <i className='fas fa-trash'></i>
           </Link>
         </span>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ExampleContext from './ExampleContext';
 import Axios from 'axios';
 Axios.defaults.baseURL = 'http://localhost:8080';
 
@@ -25,28 +26,30 @@ function Main() {
   }
 
   return (
-    <BrowserRouter>
-      <FlashMessages messages={flashMessages} />
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      <Switch>
-        <Route path='/' exact>
-          {loggedIn ? <Home /> : <HomeGuest />}
-        </Route>
-        <Route path='/create-post'>
-          <CreatePost addFlashMessage={addFlashMessage} />
-        </Route>
-        <Route path='/about-us'>
-          <About />
-        </Route>
-        <Route path='/post/:id'>
-          <ViewSinglePost />
-        </Route>
-        <Route path='/terms' exact>
-          <Terms />
-        </Route>
-      </Switch>
-      <Footer />
-    </BrowserRouter>
+    <ExampleContext.Provider value={{ addFlashMessage, setLoggedIn }}>
+      <BrowserRouter>
+        <FlashMessages messages={flashMessages} />
+        <Header loggedIn={loggedIn} />
+        <Switch>
+          <Route path='/' exact>
+            {loggedIn ? <Home /> : <HomeGuest />}
+          </Route>
+          <Route path='/create-post'>
+            <CreatePost />
+          </Route>
+          <Route path='/about-us'>
+            <About />
+          </Route>
+          <Route path='/post/:id'>
+            <ViewSinglePost />
+          </Route>
+          <Route path='/terms' exact>
+            <Terms />
+          </Route>
+        </Switch>
+        <Footer />
+      </BrowserRouter>
+    </ExampleContext.Provider>
   );
 }
 
