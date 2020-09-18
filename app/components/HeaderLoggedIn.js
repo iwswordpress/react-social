@@ -1,11 +1,14 @@
 import React from 'react';
-
+import { Link, useHistory } from 'react-router-dom';
 function HeaderLoggedIn(props) {
+  let history = useHistory();
   function handleLogout() {
     props.setLoggedIn(false);
     localStorage.removeItem('complexappToken');
     localStorage.removeItem('complexappUsername');
     localStorage.removeItem('complexappAvatar');
+    //redirect HomeGuest
+    history.push('/');
   }
   return (
     <div className='flex-row my-3 my-md-0'>
@@ -22,9 +25,9 @@ function HeaderLoggedIn(props) {
           src={localStorage.getItem('complexappAvatar')}
         />
       </a>
-      <a className='btn btn-sm btn-success mr-2' href='/create-post'>
+      <Link className='btn btn-sm btn-success mr-2' to='/create-post'>
         Create Post
-      </a>
+      </Link>
       <button className='btn btn-sm btn-secondary' onClick={handleLogout}>
         Sign Out
       </button>
