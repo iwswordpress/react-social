@@ -20,6 +20,7 @@ function CreatePost(props) {
       let id = JSON.parse(response.config.data);
       console.log(id.title);
       id = id.title;
+      props.addFlashMessage('Congrats, you successfuly created a post.');
       props.history.push(`/post/${id}`);
       console.log('New post was created.');
     } catch (e) {
