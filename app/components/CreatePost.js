@@ -7,7 +7,7 @@ import StateContext from '../StateContext';
 function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
-
+  const id = 54;
   const appDispatch = useContext(DispatchContext);
   const appState = useContext(StateContext);
 
@@ -42,9 +42,10 @@ function CreatePost(props) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('body', body);
+    formData.append('id', id);
 
     // Genereate URL
-    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/udemy/v1/add-post';
+    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/social/v1/add-post';
     console.log('url: ' + apiUrl);
     // USE FETCH API
     fetch(apiUrl, {
@@ -58,6 +59,7 @@ function CreatePost(props) {
       .then(function (data) {
         console.log(data);
         console.log('RESPONSE: ', data);
+        console.log('postId: ', data.postId);
         //appDispatch({ type: 'login', data: user });
       });
   }
