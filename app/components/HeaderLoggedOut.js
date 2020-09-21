@@ -4,13 +4,13 @@ import DispatchContext from '../DispatchContext';
 
 function HeaderLoggedOut(props) {
   const appDispatch = useContext(DispatchContext);
-  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const options = {};
   async function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('email', username);
+    formData.append('email', email);
     formData.append('password', password);
 
     // Genereate URL
@@ -30,6 +30,8 @@ function HeaderLoggedOut(props) {
         const user = {
           token: data.token,
           username: data.username,
+          email: data.email,
+          id: data.id,
           avatar: data.avatar
         };
         console.log('USER: ', user);
@@ -42,11 +44,11 @@ function HeaderLoggedOut(props) {
       <div className='row align-items-center'>
         <div className='col-md mr-0 pr-md-0 mb-3 mb-md-0'>
           <input
-            onChange={e => setUsername(e.target.value)}
-            name='username'
+            onChange={e => setEmail(e.target.value)}
+            name='email'
             className='form-control form-control-sm input-dark'
             type='text'
-            placeholder='Username'
+            placeholder='Email'
             autoComplete='off'
           />
         </div>
