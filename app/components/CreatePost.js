@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Page from './Page';
-import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import DispatchContext from '../DispatchContext';
 import StateContext from '../StateContext';
@@ -37,7 +36,27 @@ function CreatePost(props) {
       console.log('There was a problem.');
     }
   }
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('body', body);
 
+  // Genereate URL
+  let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/udemy/v1/add-post';
+  console.log('url: ' + apiUrl);
+  // USE FETCH API
+  fetch(apiUrl, {
+    method: 'POST', // set FETCH type GET/POST, if none specified GET is default
+    body: formData // append form data
+  })
+    .then(function (response) {
+      console.log(response);
+      return response.json(); // convert stream response tot text
+    })
+    .then(function (data) {
+      console.log(data);
+      console.log('RESPONSE: ', data);
+      //appDispatch({ type: 'login', data: user });
+    });
   return (
     <Page title='Create New Post'>
       <form onSubmit={handleSubmit}>
