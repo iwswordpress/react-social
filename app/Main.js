@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useImmerReducer } from 'use-immer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Axios from 'axios';
-Axios.defaults.baseURL = 'http://localhost:8080';
+// Axios.defaults.baseURL = 'http://localhost:8080';
 
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
@@ -12,6 +12,7 @@ import DispatchContext from './DispatchContext';
 import Header from './components/Header';
 import HomeGuest from './components/HomeGuest';
 import Home from './components/Home';
+import Profile from './components/Profile';
 import Footer from './components/Footer';
 import About from './components/About';
 import Terms from './components/Terms';
@@ -67,6 +68,9 @@ function Main() {
           <Switch>
             <Route path='/' exact>
               {state.loggedIn ? <Home /> : <HomeGuest />}
+            </Route>
+            <Route path='/profile/:username'>
+              <Profile />
             </Route>
             <Route path='/post/:id'>
               <ViewSinglePost />

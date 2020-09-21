@@ -1,24 +1,33 @@
 import React, { useState, useContext } from 'react';
-import Axios from 'axios';
+// import Axios from 'axios';
 import DispatchContext from '../DispatchContext';
 
 function HeaderLoggedOut(props) {
   const appDispatch = useContext(DispatchContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-
+  const options = {};
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const response = await Axios.post('/login', { username, password });
-      if (response.data) {
-        appDispatch({ type: 'login', data: response.data });
-      } else {
-        console.log('Incorrect username / password.');
-      }
-    } catch (e) {
-      console.log('There was a problem.');
-    }
+    const formData = new FormData();
+    formData.append('email', username);
+    formData.append('password', password);
+
+    // Genereate URL
+    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/udemy/v1/login';
+    console.log('url: ' + apiUrl);
+    // USE FETCH API
+    fetch(apiUrl, {
+      method: 'POST', // set FETCH type GET/POST, if none specified GET is default
+      body: formData // append form data
+    })
+      .then(function (response) {
+        console.log(response);
+        return response.json(); // convert stream response tot text
+      })
+      .then(function (data) {
+        console.log(data);
+      });
   }
 
   return (
