@@ -14,7 +14,7 @@ function HeaderLoggedOut(props) {
     formData.append('password', password);
 
     // Genereate URL
-    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/udemy/v1/login';
+    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/social/v1/login';
     console.log('url: ' + apiUrl);
     // USE FETCH API
     fetch(apiUrl, {
@@ -27,6 +27,13 @@ function HeaderLoggedOut(props) {
       })
       .then(function (data) {
         console.log(data);
+        const user = {
+          token: data.token,
+          username: data.username,
+          avatar: data.avatar
+        };
+        console.log('USER: ', user);
+        appDispatch({ type: 'login', data: user });
       });
   }
 

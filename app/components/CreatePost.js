@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Page from './Page';
-import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import DispatchContext from '../DispatchContext';
 import StateContext from '../StateContext';
@@ -13,31 +12,55 @@ function CreatePost(props) {
   const appState = useContext(StateContext);
 
   // https://reactnetwork2020.firebaseio.com/
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const response = await Axios.post('/create-post', {
-        title,
-        body,
-        token: appState.user.token
-      });
-      // Redirect to new post url
-      console.log('[CONFIG ] ', response.config);
-      console.log('[CONFIG DATA] ', response.config.data);
-      let id = JSON.parse(response.config.data);
-      console.log(id.title);
-      id = id.title;
-      appDispatch({
-        type: 'flashMessage',
-        value: 'Congrats. You have created a new post'
-      });
-      props.history.push(`/post/${id}`);
-      console.log('New post was created.');
-    } catch (e) {
-      console.log('There was a problem.');
-    }
-  }
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await Axios.post('/create-post', {
+  //       title,
+  //       body,
+  //       token: appState.user.token
+  //     });
+  //     // Redirect to new post url
+  //     console.log('[CONFIG ] ', response.config);
+  //     console.log('[CONFIG DATA] ', response.config.data);
+  //     let id = JSON.parse(response.config.data);
+  //     console.log(id.title);
+  //     id = id.title;
+  //     appDispatch({
+  //       type: 'flashMessage',
+  //       value: 'Congrats. You have created a new post'
+  //     });
+  //     props.history.push(`/post/${id}`);
+  //     console.log('New post was created.');
+  //   } catch (e) {
+  //     console.log('There was a problem.');
+  //   }
+  // }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('body', body);
+
+    // Genereate URL
+    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/udemy/v1/add-post';
+    console.log('url: ' + apiUrl);
+    // USE FETCH API
+    fetch(apiUrl, {
+      method: 'POST', // set FETCH type GET/POST, if none specified GET is default
+      body: formData // append form data
+    })
+      .then(function (response) {
+        console.log(response);
+        return response.json(); // convert stream response tot text
+      })
+      .then(function (data) {
+        console.log(data);
+        console.log('RESPONSE: ', data);
+        //appDispatch({ type: 'login', data: user });
+      });
+  }
   return (
     <Page title='Create New Post'>
       <form onSubmit={handleSubmit}>
