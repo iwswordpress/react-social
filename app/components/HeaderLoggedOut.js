@@ -1,31 +1,29 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
-import ExampleContext from '../ExampleContext';
+import DispatchContext from '../DispatchContext';
+
 function HeaderLoggedOut(props) {
-  const { setLoggedIn } = useContext(ExampleContext);
+  const appDispatch = useContext(DispatchContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const response = await Axios.post('/login', {
-        username,
-        password
-      });
+      const response = await Axios.post('/login', { username, password });
       if (response.data) {
-        console.log('VALID LOGIN! ', response.data);
         localStorage.setItem('complexappToken', response.data.token);
         localStorage.setItem('complexappUsername', response.data.username);
         localStorage.setItem('complexappAvatar', response.data.avatar);
-        setLoggedIn(true);
+        appDispatch({ type: 'login' });
       } else {
-        console.log('Incorrect login details');
+        console.log('Incorrect username / password.');
       }
     } catch (e) {
-      console.log('There was a problem');
+      console.log('There was a problem.');
     }
   }
+
   return (
     <form onSubmit={handleSubmit} className='mb-0 pt-2 pt-md-0'>
       <div className='row align-items-center'>

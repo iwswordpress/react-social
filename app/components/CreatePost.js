@@ -2,13 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import Page from './Page';
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import ExampleContext from '../ExampleContext';
+import DispatchContext from '../DispatchContext';
 
 function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
-  const { addFlashMessage } = useContext(ExampleContext);
+  const appDispatch = useContext(DispatchContext);
+
   // https://reactnetwork2020.firebaseio.com/
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,11 +20,15 @@ function CreatePost(props) {
         token: localStorage.getItem('complexappToken')
       });
       // Redirect to new post url
-      console.log(response.config.data);
+      console.log('[CONFIG ] ', response.config);
+      console.log('[CONFIG DATA] ', response.config.data);
       let id = JSON.parse(response.config.data);
       console.log(id.title);
       id = id.title;
-      addFlashMessage('Congrats!, you successfuly created a post.');
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Congrats. You have created a new post'
+      });
       props.history.push(`/post/${id}`);
       console.log('New post was created.');
     } catch (e) {
