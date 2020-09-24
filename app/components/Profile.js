@@ -1,12 +1,17 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import Page from './Page';
 import StateContext from '../StateContext';
 function Profile() {
-  // const { username } = useParams();
-
+  // const { username } = useParams()
   const appState = useContext(StateContext);
+  const [profileData, setProfileData] = useState({
+    profileUsername: '...',
+    profileAvatar: 'https://gravatar.com/avatar/placeholder?s=128',
+    isFollowing: false,
+    counts: { postCount: '', followerCount: '', followingCount: '' }
+  });
   const { id, username, avatar, email, token } = appState.user;
   console.log('PROFILE USER: ', appState.user);
   useEffect(() => {
