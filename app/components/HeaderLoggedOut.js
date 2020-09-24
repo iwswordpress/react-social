@@ -31,7 +31,7 @@ function HeaderLoggedOut(props) {
           token: data.token,
           username: data.username,
           email: data.email,
-          id: data.id,
+          id: data.userId,
           avatar: data.avatar
         };
         console.log('USER: ', user);

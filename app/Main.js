@@ -27,7 +27,9 @@ function Main() {
     user: {
       token: localStorage.getItem('complexappToken'),
       username: localStorage.getItem('complexappUsername'),
-      avatar: localStorage.getItem('complexappAvatar')
+      avatar: localStorage.getItem('complexappAvatar'),
+      id: localStorage.getItem('complexappId'),
+      email: localStorage.getItem('complexappEmail')
     }
   };
 
@@ -51,12 +53,16 @@ function Main() {
   useEffect(() => {
     if (state.loggedIn) {
       localStorage.setItem('complexappToken', state.user.token);
+      localStorage.setItem('complexappEmail', state.user.email);
       localStorage.setItem('complexappUsername', state.user.username);
       localStorage.setItem('complexappAvatar', state.user.avatar);
+      localStorage.setItem('complexappId', state.user.id);
     } else {
       localStorage.removeItem('complexappToken');
+      localStorage.removeItem('complexappEmail');
       localStorage.removeItem('complexappUsername');
       localStorage.removeItem('complexappAvatar');
+      localStorage.removeItem('complexappId');
     }
   }, [state.loggedIn]);
   return (
