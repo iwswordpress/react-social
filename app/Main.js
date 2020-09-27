@@ -56,11 +56,13 @@ function Main() {
       localStorage.setItem('complexappUsername', state.user.username);
       localStorage.setItem('complexappAvatar', state.user.avatar);
       localStorage.setItem('complexappId', state.user.id);
+      localStorage.setItem('complexappEmail', state.user.email);
     } else {
       localStorage.removeItem('complexappToken');
       localStorage.removeItem('complexappUsername');
       localStorage.removeItem('complexappAvatar');
       localStorage.removeItem('complexappId');
+      localStorage.removeItem('complexappEmail');
     }
   }, [state.loggedIn]);
 
