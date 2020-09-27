@@ -60,7 +60,6 @@ function CreatePost(props) {
         console.log(data);
         console.log('RESPONSE: ', data);
         console.log('postId: ', data.postId);
-        //appDispatch({ type: 'login', data: user });
       });
   }
   return (
