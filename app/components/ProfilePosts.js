@@ -49,7 +49,7 @@ function ProfilePosts(props) {
             <strong>
               {post.id} &nbsp;{post.title}
             </strong>
-            <span className='text-muted small'>on {dateFormatted} </span>
+            <span className='text-muted small'> on {dateFormatted} </span>
           </Link>
         );
       })}

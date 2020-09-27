@@ -10,7 +10,7 @@ add_action('rest_api_init', function () {
   function get_posts_userid($request) {
     $id = $request['id'];
     //$city = 'a%';
-    $sql = "SELECT  id, user_id, title, body, posted_on FROM tblPosts  WHERE user_id =  ".$id;
+    $sql = "SELECT  id, user_id, title, body, posted_on FROM tblPosts  WHERE user_id =  ".$id. " ORDER BY posted_on DESC";
     global $wpdb;
     $results = $wpdb->get_results($wpdb->prepare($sql, ""));
     // This is PHP code to create a JSON like data structure
