@@ -60,6 +60,7 @@ function CreatePost(props) {
         console.log(data);
         console.log('RESPONSE: ', data);
         console.log('postId: ', data.postId);
+        props.history.push(`/posts/${data.postId}`);
       });
   }
   return (
