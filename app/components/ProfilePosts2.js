@@ -6,14 +6,14 @@ import LoadingDotsIcon from './LoadingDotsIcon';
 
 function ProfilePosts(props) {
   const appState = useContext(StateContext);
-  const { avatar, id } = appState.user;
-  console.log('ID: ', id);
 
+  const { avatar, id } = appState.user;
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  let apiUrl =
-    'https://49plus.co.uk/wp-social/wp-json/social/v2/get-posts-userid/' + id;
+
   useEffect(() => {
+    // Genereate URL
+    let apiUrl = `https://49plus.co.uk/wp-social/wp-json/social/v2/get-posts-userid/54`;
     console.log('url: ' + apiUrl);
     // USE FETCH API
     fetch(apiUrl)

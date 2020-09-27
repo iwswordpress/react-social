@@ -6,17 +6,23 @@ import LoadingDotsIcon from './LoadingDotsIcon';
 
 function ProfilePosts(props) {
   const appState = useContext(StateContext);
-  const { avatar, id } = appState.user;
-  console.log('ID: ', id);
-
+  const { avatar } = appState.user;
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  let apiUrl =
-    'https://49plus.co.uk/wp-social/wp-json/social/v2/get-posts-userid/' + id;
+
   useEffect(() => {
+    const formData = new FormData();
+
+    formData.append('id', 54);
+
+    // Genereate URL
+    let apiUrl = `https://49plus.co.uk/wp-social/wp-json/social/v2/get-posts-user`;
     console.log('url: ' + apiUrl);
     // USE FETCH API
-    fetch(apiUrl)
+    fetch(apiUrl, {
+      method: 'POST', // set FETCH type GET/POST, if none specified GET is default
+      body: formData // append form data
+    })
       .then(function (response) {
         console.log(response);
         return response.json(); // convert stream response tot text
@@ -25,7 +31,7 @@ function ProfilePosts(props) {
         setPosts(data);
         setIsLoading(false);
         console.log(data);
-        console.log('POSTS', posts);
+        console.log('RESPONSE: ', data);
       });
   }, []);
 

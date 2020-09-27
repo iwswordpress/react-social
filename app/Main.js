@@ -27,7 +27,9 @@ function Main() {
     user: {
       token: localStorage.getItem('complexappToken'),
       username: localStorage.getItem('complexappUsername'),
-      avatar: localStorage.getItem('complexappAvatar')
+      avatar: localStorage.getItem('complexappAvatar'),
+      id: localStorage.getItem('complexappId'),
+      email: localStorage.getItem('complexappEmail')
     }
   };
 
@@ -53,10 +55,12 @@ function Main() {
       localStorage.setItem('complexappToken', state.user.token);
       localStorage.setItem('complexappUsername', state.user.username);
       localStorage.setItem('complexappAvatar', state.user.avatar);
+      localStorage.setItem('complexappId', state.user.id);
     } else {
       localStorage.removeItem('complexappToken');
       localStorage.removeItem('complexappUsername');
       localStorage.removeItem('complexappAvatar');
+      localStorage.removeItem('complexappId');
     }
   }, [state.loggedIn]);
 
