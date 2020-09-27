@@ -47,8 +47,8 @@ function ProfilePosts(props) {
 
         return (
           <Link
-            key={post._id}
-            to={`/post/${post._id}`}
+            key={post.id}
+            to={`/post/${post.id}`}
             className='list-group-item list-group-item-action'
           >
             <img className='avatar-tiny' src={avatar} />{' '}
