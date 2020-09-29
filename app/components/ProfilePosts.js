@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Axios from 'axios';
 import StateContext from '../StateContext';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoadingDotsIcon from './LoadingDotsIcon';
 
 function ProfilePosts(props) {

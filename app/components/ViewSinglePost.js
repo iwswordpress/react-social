@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Page from './Page';
+import LoadingDotsIcon from './LoadingDotsIcon';
 import StateContext from '../StateContext';
 
 function ViewSinglePost() {
@@ -23,12 +24,15 @@ function ViewSinglePost() {
         setPost(data[0]);
         setIsLoading(false);
       });
+    return () => {
+      console.log('cancel fetch token');
+    };
   }, []);
 
   if (isLoading)
     return (
       <Page title='...'>
-        <div>Loading...</div>
+        <LoadingDotsIcon />
       </Page>
     );
   const date = new Date(post.posted_on);
