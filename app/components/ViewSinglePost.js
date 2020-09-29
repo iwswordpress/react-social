@@ -1,51 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Page from './Page';
+import StateContext from '../StateContext';
+
 function ViewSinglePost() {
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const appState = useContext(StateContext);
+  const [post, setPost] = useState();
+  const { avatar, username } = appState.user;
+  let apiUrl =
+    'https://49plus.co.uk/wp-social/wp-json/social/v2/get-post-id/' + id;
+  useEffect(() => {
+    console.log('url: ' + apiUrl);
+    // USE FETCH API
+    fetch(apiUrl)
+      .then(function (response) {
+        console.log(response);
+        return response.json(); // convert stream response tot text
+      })
+      .then(function (data) {
+        setPost(data[0]);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading)
+    return (
+      <Page title='...'>
+        <div>Loading...</div>
+      </Page>
+    );
+  const date = new Date(post.posted_on);
+  const dateFormatted = `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}`;
   return (
-    <Page title='Fake Hardcoded Title'>
+    <Page title={post.title}>
       <div className='d-flex justify-content-between'>
-        <h2>Example Post Title</h2>
+        <h2>
+          {post.id}&nbsp;{post.title}
+        </h2>
         <span className='pt-2'>
-          <Link to='/home' className='text-primary mr-2' title='Edit'>
+          <a href='#' className='text-primary mr-2' title='Edit'>
             <i className='fas fa-edit'></i>
-          </Link>
-          <Link
-            to='/'
-            className='delete-post-button text-danger'
-            title='Delete'
-          >
+          </a>
+          <a className='delete-post-button text-danger' title='Delete'>
             <i className='fas fa-trash'></i>
-          </Link>
+          </a>
         </span>
       </div>
 
       <p className='text-muted small mb-4'>
-        <Link to='/home'>
-          <img
-            className='avatar-tiny'
-            src='https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128'
-          />
+        <Link to={`/profile/${username}`}>
+          <img className='avatar-tiny' src={avatar} />
         </Link>
-        Posted by <Link to='/home'>brad</Link> on 2/10/2020
+        Posted by <Link to={`/profile/${username}`}>{username}</Link> on{' '}
+        {dateFormatted}
       </p>
 
-      <div className='body-content'>
-        <p>
-          Lorem ipsum dolor sit <strong>example</strong> post adipisicing elit.
-          Iure ea at esse, tempore qui possimus soluta impedit natus voluptate,
-          sapiente saepe modi est pariatur. Aut voluptatibus aspernatur fugiat
-          asperiores at.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quod
-          asperiores corrupti omnis qui, placeat neque modi, dignissimos, ab
-          exercitationem eligendi culpa explicabo nulla tempora rem? Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Iure ea at esse, tempore
-          qui possimus soluta impedit natus voluptate, sapiente saepe modi est
-          pariatur. Aut voluptatibus aspernatur fugiat asperiores at.
-        </p>
-      </div>
+      <div className='body-content'>{post.body}</div>
     </Page>
   );
 }

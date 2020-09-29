@@ -25,7 +25,6 @@ function ProfilePosts(props) {
         setPosts(data);
         setIsLoading(false);
         console.log(data);
-        console.log('POSTS', posts);
       });
   }, []);
 
