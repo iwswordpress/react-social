@@ -19,6 +19,7 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import FlashMessages from './components/FlashMessages';
 import Profile from './components/Profile';
+import EditPost from './components/EditPost';
 
 function Main() {
   const initialState = {
@@ -79,11 +80,14 @@ function Main() {
             <Route path='/' exact>
               {state.loggedIn ? <Home /> : <HomeGuest />}
             </Route>
-            <Route path='/post/:id'>
+            <Route path='/post/:id' exact>
               <ViewSinglePost />
             </Route>
             <Route path='/create-post'>
               <CreatePost />
+            </Route>
+            <Route path='/post/:id/edit'>
+              <EditPost />
             </Route>
             <Route path='/about-us'>
               <About />
