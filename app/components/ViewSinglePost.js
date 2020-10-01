@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import Page from './Page';
 import LoadingDotsIcon from './LoadingDotsIcon';
 import StateContext from '../StateContext';
@@ -23,7 +24,8 @@ function ViewSinglePost() {
       .then(function (data) {
         setPost(data[0]);
         setIsLoading(false);
-      });
+      })
+      .catch(error => console.log('ERROR: ', error));
     return () => {
       console.log('cancel fetch token');
     };
@@ -63,7 +65,9 @@ function ViewSinglePost() {
         {dateFormatted}
       </p>
 
-      <div className='body-content'>{post.body}</div>
+      <div className='body-content'>
+        <ReactMarkdown source={post.body} />
+      </div>
     </Page>
   );
 }
