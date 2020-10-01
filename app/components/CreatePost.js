@@ -11,32 +11,6 @@ function CreatePost(props) {
   const appDispatch = useContext(DispatchContext);
   const appState = useContext(StateContext);
 
-  // https://reactnetwork2020.firebaseio.com/
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await Axios.post('/create-post', {
-  //       title,
-  //       body,
-  //       token: appState.user.token
-  //     });
-  //     // Redirect to new post url
-  //     console.log('[CONFIG ] ', response.config);
-  //     console.log('[CONFIG DATA] ', response.config.data);
-  //     let id = JSON.parse(response.config.data);
-  //     console.log(id.title);
-  //     id = id.title;
-  //     appDispatch({
-  //       type: 'flashMessage',
-  //       value: 'Congrats. You have created a new post'
-  //     });
-  //     props.history.push(`/post/${id}`);
-  //     console.log('New post was created.');
-  //   } catch (e) {
-  //     console.log('There was a problem.');
-  //   }
-  // }
-
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
