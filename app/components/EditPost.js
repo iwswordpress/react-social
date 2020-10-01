@@ -41,7 +41,7 @@ function EditPost(props) {
     formData.append('id', id);
 
     // Genereate URL
-    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/social/v1/add-post';
+    let apiUrl = 'https://49plus.co.uk/wp-social/wp-json/social/v2/edit-post';
     console.log('url: ' + apiUrl);
     // USE FETCH API
     fetch(apiUrl, {
@@ -56,7 +56,7 @@ function EditPost(props) {
         console.log(data);
         console.log('RESPONSE: ', data);
         console.log('postId: ', data.postId);
-        props.history.push(`/post/${data.postId}`);
+        props.history.push(`/post/${id}`);
       });
   }
 
