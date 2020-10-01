@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Page from './Page';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import LoadingDotsIcon from './LoadingDotsIcon';
-import DispatchContext from '../DispatchContext';
-import StateContext from '../StateContext';
 
 function EditPost(props) {
   const [title, setTitle] = useState();
@@ -11,8 +9,7 @@ function EditPost(props) {
 
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-  const appDispatch = useContext(DispatchContext);
-  const appState = useContext(StateContext);
+
   let apiUrl =
     'https://49plus.co.uk/wp-social/wp-json/social/v2/get-post-id/' + id;
   useEffect(() => {
@@ -62,6 +59,7 @@ function EditPost(props) {
         props.history.push(`/post/${data.postId}`);
       });
   }
+
   return (
     <Page title='Create New Post'>
       <form onSubmit={handleSubmit}>
@@ -72,12 +70,11 @@ function EditPost(props) {
           <input
             value={title}
             onChange={e => setTitle(e.target.value)}
-            autoFocus
+            // autoFocus
             name='title'
             id='post-title'
             className='form-control form-control-lg form-control-title'
             type='text'
-            placeholder=''
             autoComplete='off'
           />
         </div>
@@ -96,10 +93,10 @@ function EditPost(props) {
           />
         </div>
 
-        <button className='btn btn-primary'>Save New Post</button>
+        <button className='btn btn-primary'>Update Post</button>
       </form>
     </Page>
   );
 }
 
-export default EditPost;
+export default withRouter(EditPost);
