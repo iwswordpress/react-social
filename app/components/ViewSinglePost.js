@@ -73,7 +73,7 @@ function ViewSinglePost(props) {
         })
         .then(function (data) {
           console.log('Result ', data);
-          props.history.push(`/`);
+          props.history.push(`/profile/${username}`);
         });
     }
   }
